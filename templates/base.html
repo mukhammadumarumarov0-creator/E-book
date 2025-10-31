@@ -1,0 +1,434 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookWorms - Online Book Store</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">BookWorms</span>
+                </div>
+                <nav class="nav">
+
+                  {% if request.user.is_authenticated%}
+                      <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/'%}active{% endif %}">Home</a>
+                      <a href="{% url 'about' %}" class="nav-link {% if request.path == '/about/'%}active{% endif %}" >About</a>
+                      <a href="{% url 'account' %}" class="nav-link {% if request.path == '/account/'%}active{% endif %}">Account</a>
+                  {% else %}
+                      <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/'%}active{% endif %}">Home</a>
+                      <a href="{% url 'about' %}" class="nav-link {% if request.path == '/about/'%}active{% endif %}" >About</a>
+                      <a href="{% url 'login_user' %}" class="nav-link {% if request.path == '/login/'%}active{% endif %}">Login</a>
+                      <a href="{% url 'register' %}" class="nav-link {% if request.path == '/register/'%}active{% endif %}">SignUp</a>
+                  {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    {% block main %}
+    
+    {% endblock main %}
+   
+
+
+  
+  
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About BookWorms</h4>
+                    <p>This Project is prepared for Exam</p>
+                </div>
+                <div class="footer-section">
+                  <h4>Quick Links</h4>
+                  <div class="social-links">
+                      <a href="{% url 'dashboard' %}" class="social-link">Home</a>
+                      <a href="{% url 'about' %}" class="social-link">About</a>
+                      <a href="{% url 'login_user' %}" class="social-link">Login</a>
+                      <a href="{% url 'register' %}" class="social-link">SignUp</a>
+                  </div>
+              </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; This website was made by Muhammadumar.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/account.js' %}"></script>
+    
+
+    <style>
+      /* comments CSS */
+    .comments-section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 18px rgba(20,20,30,0.06);
+      max-width: 900px;
+      margin: 24px auto;
+    }
+    
+    .comments-section h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.25rem;
+    }
+    
+    .comment-inputs textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e6;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 72px;
+      box-sizing: border-box;
+    }
+    
+    .comment-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(90deg,#4f46e5,#06b6d4);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #ddd;
+      color: #333;
+    }
+    
+    .comment-msg {
+      margin-top: 10px;
+      min-height: 20px;
+      font-size: 0.95rem;
+    }
+    .comment-msg.success { color: #065f46; }
+    .comment-msg.error { color: #b91c1c; }
+    
+    .comments-list { list-style: none; padding: 0; margin: 18px 0 0 0; display:block; }
+    .comment-item {
+      border-top: 1px solid #f1f1f5;
+      padding: 12px 0;
+    }
+    .comment-item:first-child { border-top: none; padding-top: 0; }
+    
+    .comment-meta { font-size: 0.85rem; color: #374151; display:flex; gap:12px; align-items:center; }
+    .comment-meta time { color:#6b7280; font-size:0.8rem; }
+    
+    .comment-body { margin-top:6px; font-size:0.96rem; color:#111827; white-space:pre-wrap; }
+    
+    .comment-controls { margin-top:8px; }
+    .reply-btn {
+      background: transparent;
+      border: none;
+      color: #2563eb;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    .replies-list { list-style:none; padding-left: 16px; margin-top:10px; border-left: 2px solid rgba(0,0,0,0.03); }
+    .comment-item.reply { background: rgba(99,102,241,0.03); padding:8px; border-radius:8px; margin-top:8px; }
+    
+    .no-comments { color:#6b7280; padding:12px 0; }
+    
+    </style>
+
+    <style>
+
+      .nav-link.active {
+        color: #fff;
+        background: #f4c430;
+        border-radius: 6px;
+        padding: 5px 10px;
+        transition: 0.3s;
+      }
+      
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+          }
+          
+          .book-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: 0.3s;
+            padding-bottom: 20px;
+          }
+          
+          .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          }
+          
+          .book-image {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+          }
+          
+          .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s ease;
+          }
+          
+          .book-card:hover .book-image img {
+            transform: scale(1.05);
+          }
+          
+          /* Category badge */
+          .book-category {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #ffcc00;
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+          }
+          
+          /* Title styling */
+          .book-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 15px 0 5px;
+            color: #333;
+          }
+          
+          /* Rating styling */
+          .book-rating .stars {
+            color: #ffb400;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+          }
+          
+          /* Button */
+          .btn.btn-secondary {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+          }
+          
+          .btn.btn-secondary:hover {
+            background: #444;
+            transform: translateY(-2px);
+          }
+          
+    </style>
+
+    <style>
+        .hero {
+            position: relative;
+            background-image: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=3000&q=80");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+          }
+          
+          .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+          }
+          
+          .hero .container {
+            position: relative;
+            z-index: 2;
+          }
+          
+          .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+          }
+          
+          .hero-text {
+            max-width: 550px;
+          }
+          
+          .hero-label {
+            color: #ffd43b;
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+          }
+          
+          .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+          }
+          
+          .hero-description {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #f1f1f1;
+          }
+          
+          /* 🔍 Search field styling */
+          .hero-search {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            padding: 5px;
+            backdrop-filter: blur(5px);
+          }
+          
+          .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1rem;
+            outline: none;
+          }
+          
+          .search-input::placeholder {
+            color: #ddd;
+          }
+          
+          .search-btn {
+            background: #ffd43b;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+          }
+          
+          .search-btn:hover {
+            background: #ffc107;
+            transform: translateY(-2px);
+          }
+          
+          /* Main button */
+          .btn.btn-primary {
+            background: #ffd43b;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+          }
+          
+          .btn.btn-primary:hover {
+            background: #ffc107;
+            transform: translateY(-2px);
+          }
+          
+          /* Book carousel */
+          .hero-books {
+            display: flex;
+            align-items: center;
+          }
+          
+          .book-carousel {
+            display: flex;
+            align-items: center;
+          }
+          
+          .books-display {
+            display: flex;
+            gap: 10px;
+            overflow: hidden;
+          }
+          
+          .book-item img {
+            width: 100px;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: 0.3s;
+          }
+          
+          .book-item.active img {
+            transform: scale(1.1);
+            border: 2px solid #ffd43b;
+          }
+          
+          .carousel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+          }
+          
+          .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+          }
+          
+          
+    </style>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-label">Latest Books</p>
+        <h1 class="hero-title">
+          You're Only One Book Away From a Good Mood
+        </h1>
+        <p class="hero-description">
+          For no one hates or avoids pleasure itself because it is pleasure, but because great pains follow those who do not know how to follow pleasure with reason.
+        </p>
+
+        <!-- 🔍 Search Field -->
+        <form method="get" action="{% url 'dashboard' %}">
+          <div class="hero-search">
+            <input
+              type="text"
+              placeholder="Search your favorite book..."
+              class="search-input"
+              name="q"
+            />
+            <button class="search-btn" type="submit">Search</button>
+          </div>
+        </form>
+        
+      </div>
+
+      <div class="hero-books">
+        <div class="book-carousel">
+          <button class="carousel-btn prev">❮</button>
+          <div class="books-display">
+            <div class="book-item active">
+              <img
+                src="https://m.media-amazon.com/images/I/616Y0XdM5zL._AC_UF894,1000_QL80_.jpg"
+                alt="Into the Wild"
+              />
+            </div>
+            <div class="book-item ">
+              <img
+                src="https://marketplace.canva.com/EAE6-E_RQfM/1/0/900w/canva-books-background-simple-colorful-phone-wallpaper-aJ0Mb91j1G0.jpg"
+                alt="This Dark Road to Mercy"
+              />
+            </div>
+          </div>
+          <button class="carousel-btn next">❯</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

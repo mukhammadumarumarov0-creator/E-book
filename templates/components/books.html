@@ -1,0 +1,27 @@
+<section class="discover">
+    <div class="container">
+        <h2 class="section-title">Discover Your New Book</h2>
+        <p class="section-subtitle">Congue, gravida placeat nibh sunt semper elementum anim Integer lectus debitis auctor.</p>
+        
+        <section class="discover">
+          <div class="container">
+            <div class="books-grid" id="booksGrid">
+              {% for b in books %}
+              <div class="book-card" data-genre="{{ b.ganer }}">
+                <div class="book-image">
+                  <img src="{{b.image.url}}" alt="{{ b.title }}">
+                  <span class="book-category">{{ b.ganer }}</span>
+                </div>
+                <span class="stars">★★★★★</span>
+                <h3 class="book-title">{{ b.title }}</h3>
+    
+                <a href="{% url 'book' b.id %}" class="btn btn-secondary">Batafsil Malumot</a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+      
+          </div>
+    </div>
+</section>

@@ -1,0 +1,26 @@
+    <!-- Account Section -->
+    <main class="account-page">
+        <div class="container">
+            <div class="auth-container" id="auth-container">
+                <div  class="">
+                    <h2>Create Your Account</h2>
+                    <form id="register-form" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                          <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                              <div class="error">{{ field.errors|striptags }}</div>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-large" type="submit">Create Account</button>
+                        <p class="form-link">
+                            Already have an account? <a href="{% url 'login_user' %}">Login here</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>

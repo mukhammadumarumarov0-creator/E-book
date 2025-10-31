@@ -1,0 +1,28 @@
+
+    <main class="account-page">
+        <div class="container">
+            <div class="auth-container" id="auth-container">
+                <div id="login-tab" class="auth-form active">
+                    <h2>Login to Your Account</h2>
+                    <form id="register-form" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="register-email">Username *</label>
+                          <input type="text" id="register-email" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Password *</label>
+                            <input type="password" id="register-email" name="password" placeholder="Password" required>
+                          </div>
+              
+                        <button type="submit" class="btn btn-primary btn-large" type="submit">Login</button>
+              
+                        <p class="form-link">
+                          Don't have an account?
+                          <a href="{% url 'register' %}">Register here</a>
+                        </p>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </main>

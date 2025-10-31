@@ -1,0 +1,42 @@
+<section class="categories">
+    <div class="container">
+      <h2 class="section-title">Browse by Genre</h2>
+      <div class="category-filters">
+        <button class="category-btn active" data-genre="all">All Books</button>
+        <button class="category-btn" data-genre="Fiction">Fiction</button>
+        <button class="category-btn" data-genre="Mystery">Mystery</button>
+        <button class="category-btn" data-genre="Romance">Romance</button>
+        <button class="category-btn" data-genre="Science">Science</button>
+        <button class="category-btn" data-genre="History">History</button>
+      </div>
+    </div>
+  </section>
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const filterButtons = document.querySelectorAll(".category-btn");
+      const bookCards = document.querySelectorAll(".book-card");
+    
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          // 🔸 Faol (active) tugmani yangilaymiz
+          document.querySelector(".category-btn.active")?.classList.remove("active");
+          btn.classList.add("active");
+    
+          const selectedGenre = btn.dataset.genre.toLowerCase();
+    
+          bookCards.forEach(card => {
+            const cardGenre = card.dataset.genre.toLowerCase();
+    
+            if (selectedGenre === "all" || cardGenre === selectedGenre) {
+              card.style.display = "block";  // ko‘rsatish
+            } else {
+              card.style.display = "none";   // yashirish
+            }
+          });
+        });
+      });
+    });
+ </script>
+    

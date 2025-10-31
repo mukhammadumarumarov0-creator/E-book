@@ -1,0 +1,204 @@
+ {% load static %}
+ <!-- Product Detail Section -->
+ <main class="product-detail">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'dashboard' %}">Home</a> /  <span id="breadcrumb-title">{{book.title}}</span>
+        </div>
+
+        <div class="product-container">
+            <!-- Product Image -->
+            <div class="product-image-section">
+                <div class="product-image">
+                    <img id="product-image" src="{{book.image.url}}" alt="Product Image">
+                </div>
+                <div class="product-badges">
+                    <span class="badge-sale" id="sale-badge" style="display: none;">Sale</span>
+                    <span class="badge-new">{{book.ganer}}</span>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 id="product-title">{{book.title}}</h1>
+                
+                <div class="product-rating">
+                    <div class="stars" id="product-stars">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star half">★</span>
+                    </div>
+                    <span class="rating-text">4.5 out of 5 ({{reviews.count}} reviews)</span>
+                </div>
+
+                <div class="product-price">
+                    <span class="price" id="product-price">Book Description</span>
+                </div>
+
+                <p class="product-description" id="product-description">
+                   {{book.description}}
+                </p>
+
+                <div class="product-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Author:</span>
+                        <span class="detail-value" id="product-author">{{book.author.name}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Publisher:</span>
+                        <span class="detail-value" id="product-publisher">{{book.publisher}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Pages:</span>
+                        <span class="detail-value" id="product-pages">{{book.page}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Genre:</span>
+                        <span class="detail-value" id="product-genre">{{book.ganer}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Language:</span>
+                        <span class="detail-value" id="product-genre">{{book.language}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Published date:</span>
+                        <span class="detail-value" id="product-genre">{{book.published_date}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if request.user.is_authenticated%}
+          <form id="commentForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="parent_id" id="parent_id" value="">
+            <div class="comment-inputs">
+              <h2>Share with your Reading Expirince</h2>
+              <label for="commentContent" class="visually-hidden">Izohingiz</label>
+              <textarea id="commentContent" name="content" placeholder="Izoh qoldiring..." rows="4" required></textarea>
+              <div class="comment-actions">
+                <button type="submit" class="btn btn-primary" type="submit">Jo'natish</button>
+                <button type="button" id="cancelReply" class="btn btn-ghost">Tozalash</button>
+              </div>
+            </div>
+          </form>
+        {%else%}
+         <h2><p>To add your comment please <a href="{% url 'login_user' %}">login</a></p></h2>
+        {% endif %}
+         <br>
+         <br>
+        {% if reviews %}
+        <div class="reviews-section">
+            <h2>Reader's Reviews</h2>
+            <div class="reviews-container">
+                    {% for review in reviews  %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-author">{{review.user}}</span>
+                            <div class="review-stars">★★★★★</div>
+                        </div>
+                        <p class="review-text">{{review.comment_text | truncatewords:25}}</p>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+        {% else%}
+        <h2>💬 Hozircha izohlar mavjud emas</h2>
+        <br>
+        <br>
+
+
+
+          
+      {% endif %}
+       <!-- Related Products -->
+       <div class="related-products">
+        <h2>Related Books</h2>
+        <div class="books-grid">
+            {% for book in books %}
+            <div class="book-card" data-genre="{{ book.ganer }}">
+              <div class="book-image">
+                {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                {% else %}
+                <img src="" alt="No image">
+                {% endif %}
+                <span class="book-category">{{ book.ganer }}</span>
+              </div>
+              <span class="stars">★★★★★</span>
+              <h3 class="book-title">{{ book.title }}</h3>
+              <a href="{% url 'book' book.id %}" class="btn btn-secondary">Batafsil Ma’lumot</a>
+            </div>
+            {% endfor %}
+          </div>
+    </div>
+</main>
+
+<style>
+    .books-grid {
+        display: flex;
+        flex-wrap: wrap;        /* yangi qatorda davom etadi */
+        gap: 20px;              /* kartalar orasidagi masofa */
+        justify-content: center; /* markazga joylash */
+      }
+      
+      .book-card {
+        flex: 0 0 22%;          /* har biri taxminan 4 tadan qatorda */
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        background: #fff;
+        text-align: center;
+        transition: transform 0.3s;
+      }
+      
+      .book-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .book-image img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      
+      @media (max-width: 992px) {
+        .book-card { flex: 0 0 30%; } /* 3 ta yonma-yon */
+      }
+      @media (max-width: 768px) {
+        .book-card { flex: 0 0 45%; } /* 2 ta yonma-yon */
+      }
+      @media (max-width: 480px) {
+        .book-card { flex: 0 0 100%; } /* bitta qatorda */
+      }
+      
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const cancelBtn = document.getElementById("cancelReply");
+      const parentInput = document.getElementById("parent_id");
+      const textarea = document.getElementById("commentContent");
+  
+      cancelBtn.addEventListener("click", function() {
+        // parent_id ni tozalaydi (reply holatini bekor qiladi)
+        parentInput.value = "";
+  
+        // textarea’ni ham tozalasa bo‘ladi
+        textarea.value = "";
+  
+        // Foydalanuvchiga kichik vizual signal
+        cancelBtn.textContent = "Bekor qilindi ✅";
+        cancelBtn.disabled = true;
+  
+        setTimeout(() => {
+          cancelBtn.textContent = "Bekor qilish";
+          cancelBtn.disabled = false;
+        }, 1500);
+      });
+    });
+  </script>
+  

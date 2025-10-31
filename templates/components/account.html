@@ -1,0 +1,41 @@
+    <!-- Account Section -->
+    <main class="account-page">
+        <div class="container">
+            <!-- User Dashboard (shown after login) -->
+            <div class="user-dashboard" id="user-dashboard">
+                <div class="dashboard-header">
+                    <h2>Welcome, <span id="user-name">{{request.user.username}}</span>!</h2>
+                    <a href="{% url 'logout' %}"><button class="btn btn-secondary" id="logout-btn">Logout</button></a>
+                </div>
+
+                <div class="dashboard-content">
+                    <!-- Account Information -->
+                    <section class="dashboard-section">
+                        <h3>Account Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Email:</label>
+                                <p id="display-email">{{request.user.email}}</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Full Name:</label>
+                                <p id="display-name">{{request.user.first_name}} {{ request.user.last_name}}</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Member Since:</label>
+                                <p id="member-since">{{request.user.date_joined}}</p>
+                            </div>
+                        </div>
+                        <a href="{% url 'contact' %}"><button class="btn btn-secondary" >Edit Profile</button></a>
+                    </section>
+
+                  
+                    <!-- Security -->
+                    <section class="dashboard-section">
+                        <h3>Security</h3>
+                        <a href="{% url 'password' %}"><button class="btn btn-secondary">Change Password</button></a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
